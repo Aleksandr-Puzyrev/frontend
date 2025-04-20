@@ -2,10 +2,12 @@
 
 import useCourseCreateMutation from "@/api/hooks/courses/useCourseCreateMutation";
 import Icon from "@/components/Icon";
+import Routes from "@/shared/config/routes.config";
 import { ICourse } from "@/shared/interfaces/courses/Course";
 import { CreateStructureCourseSchema } from "@/shared/schema/CreateStructureCourseSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 
 type ICourseForm = Omit<ICourse, "id">;
@@ -16,6 +18,7 @@ interface ICreateStructureCourseForm {
 
 const CreateStructureCourseForm = ({ courseData }: ICreateStructureCourseForm) => {
   const { mutate } = useCourseCreateMutation();
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -37,7 +40,11 @@ const CreateStructureCourseForm = ({ courseData }: ICreateStructureCourseForm) =
   });
 
   const onSubmit = (data: ICourseForm) => {
-    mutate(data);
+    mutate(data, {
+      onSuccess: (data) => {
+        router.push(Routes.courses.createCourseModules(String(data.id)));
+      },
+    });
   };
 
   return (
@@ -78,13 +85,14 @@ const CreateStructureCourseForm = ({ courseData }: ICreateStructureCourseForm) =
           size="small"
         />
         <TextField
+          multiline
           label="Цели курса"
           fullWidth
           {...register("goals")}
           error={!!errors.goals}
           helperText={errors.goals?.message}
           size="small"
-        /> 
+        />
         <Box>
           <Typography variant="subtitle1" gutterBottom>
             Модули курса
@@ -143,14 +151,18 @@ const CreateStructureCourseForm = ({ courseData }: ICreateStructureCourseForm) =
                           />
 
                           <TextField
-                            label="Содержание урока"
+                            label="Описание урока"
                             fullWidth
                             multiline
                             rows={4}
-                            {...register(`modules.${moduleIndex}.lessons.${lessonIndex}.content`)}
-                            error={!!errors.modules?.[moduleIndex]?.lessons?.[lessonIndex]?.content}
+                            {...register(
+                              `modules.${moduleIndex}.lessons.${lessonIndex}.description`
+                            )}
+                            error={
+                              !!errors.modules?.[moduleIndex]?.lessons?.[lessonIndex]?.description
+                            }
                             helperText={
-                              errors.modules?.[moduleIndex]?.lessons?.[lessonIndex]?.content
+                              errors.modules?.[moduleIndex]?.lessons?.[lessonIndex]?.description
                                 ?.message
                             }
                             size="small"

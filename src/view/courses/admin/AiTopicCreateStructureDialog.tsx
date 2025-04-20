@@ -5,13 +5,14 @@ import { Button } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
 
 interface AiTopicCreateCourseDialogProps {
-  setCourseData: Dispatch<SetStateAction<ICourse | null>>
+  setCourseData: Dispatch<SetStateAction<ICourse | null>>;
+  courseData: ICourse | null;
 }
-const AiTopicCreateStructureDialog = ({setCourseData}: AiTopicCreateCourseDialogProps) => {
+const AiTopicCreateStructureDialog = ({setCourseData, courseData}: AiTopicCreateCourseDialogProps) => {
   return (
     <DialogComponent
       Toggler={(props) => (
-        <Button variant="contained" sx={{width: "fit-content"}} {...props}>
+        <Button variant="contained" sx={{width: "fit-content"}} disabled={!!courseData} {...props}>
           Сгенерировать курс по теме
         </Button>
       )}

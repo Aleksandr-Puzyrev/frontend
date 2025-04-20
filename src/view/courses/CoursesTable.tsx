@@ -2,19 +2,16 @@
 
 import useCoursesQuery from "@/api/hooks/courses/useCoursesQuery";
 import NoRowsOverlay from "@/components/NoRowsOverlay";
+import { CourseStatuses } from "@/shared/config/course-status.config";
 import Routes from "@/shared/config/routes.config";
 import { ICourse } from "@/shared/interfaces/courses/Course";
 import usePaginationModel from "@/shared/utils/usePaginationModel";
-import { Button, Card, CardContent, TextField, Typography } from "@mui/material";
+import { Button, Card, CardContent, Chip, TextField, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridSortModel } from "@mui/x-data-grid";
 import Link from "next/link";
 import { useDeferredValue, useState } from "react";
 
-interface ICoursesTable {
-  hideSelection?: boolean;
-}
-
-const CoursesTable = ({ hideSelection }: ICoursesTable) => {
+const CoursesTable = () => {
   const columns: GridColDef<ICourse>[] = [
     {
       flex: 0.12,
@@ -51,11 +48,23 @@ const CoursesTable = ({ hideSelection }: ICoursesTable) => {
       renderCell: (item) => item.row.description ?? "-",
     },
     {
-      flex: 0.25,
-      field: "lessons",
-      headerName: "Уроки",
+      flex: 0.12,
+      field: "status",
+      headerName: "Статус",
       sortable: false,
-      renderCell: (item) => item.row.lessons.map((item) => item.title).join(", ") ?? "-",
+      renderCell: (item) => (
+        <Chip
+          label={CourseStatuses[item.row.status ?? "CREATED"].label}
+          color={CourseStatuses[item.row.status ?? "CREATED"].color}
+        />
+      ),
+    },
+    {
+      flex: 0.25,
+      field: "modules",
+      headerName: "Модули",
+      sortable: false,
+      renderCell: (item) => item.row.modules.map((item) => item.title).join(", ") ?? "-",
     },
   ];
 
@@ -107,7 +116,6 @@ const CoursesTable = ({ hideSelection }: ICoursesTable) => {
         columns={columns}
         slots={{ noRowsOverlay: NoRowsOverlay }}
         pageSizeOptions={[10, 20, 30]}
-        checkboxSelection={!hideSelection}
         disableRowSelectionOnClick
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}

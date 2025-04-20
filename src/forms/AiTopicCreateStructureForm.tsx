@@ -1,6 +1,6 @@
 "use client";
 
-import useAiCreateStructurMutation from "@/api/hooks/ai/useAiCourseCreateMutation";
+import useAiCreateStructureMutation from "@/api/hooks/ai/useAiCreateStructureMutation";
 import { ICourse } from "@/shared/interfaces/courses/Course";
 import aiTopicCreateCourseSchema, {
   IAiTopicCreateCourse,
@@ -20,7 +20,7 @@ const AiTopicCreateStructureForm = ({
   closeDialog,
   setCourseData,
 }: IAiTopicCreateStructureForm) => {
-  const { mutate } = useAiCreateStructurMutation();
+  const { mutate } = useAiCreateStructureMutation();
   const {
     handleSubmit,
     register,
@@ -34,6 +34,7 @@ const AiTopicCreateStructureForm = ({
       onSuccess: (data) => {
         setCourseData(data);
         toast.success("Генерация структуры курса прошла успешно");
+        closeDialog();
       },
     });
   };

@@ -5,7 +5,7 @@ const QuestionSchema = yup.object().shape({
   options: yup
     .array()
     .of(yup.string().required("Вариант ответа не может быть пустым"))
-    .min(4, "Должно быть минимум 4 варианта ответа")
+    .min(3, "Должно быть минимум 3 варианта ответа")
     .required("Варианты ответов обязательны"),
   answer: yup
     .string()
@@ -17,11 +17,16 @@ const QuestionSchema = yup.object().shape({
 
 const LessonSchema = yup.object().shape({
   title: yup.string().required("Название урока обязательно"),
-  content: yup.string().required("Содержание урока обязательно"),
+  description: yup.string().required("Описание урока обязательно"),
   questions: yup.array().of(QuestionSchema).optional(),
 });
 
-const ModuleSchema = yup.object().shape({
+export const UpdateLessonSchema = LessonSchema.shape({
+  content: yup.string().required("Контент урока обязателен"),
+  questions: yup.array().of(QuestionSchema).required("Вопросы урока обязательны"),
+});
+
+export const ModuleSchema = yup.object().shape({
   title: yup.string().required("Название модуля обязательно"),
   description: yup.string().required("Описание модуля обязательно"),
   lessons: yup.array().of(LessonSchema).optional(),

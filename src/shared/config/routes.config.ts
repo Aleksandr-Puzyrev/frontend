@@ -8,7 +8,8 @@ const Routes = {
     courses: {
       list: "/courses",
       detail: (id: string) => `/courses/${id}`,
-      create: "/create-course"
+      create: "/create-course",
+      createCourseModules: (id: string) => `/create-course/${id}`,
     },
     users: {
       list: "/users",
