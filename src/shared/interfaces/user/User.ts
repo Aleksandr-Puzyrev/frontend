@@ -15,3 +15,16 @@ export interface IUser {
   banned: boolean;
   banReason: string;
 }
+
+interface IProfileCourse {
+  id: number;
+  title: string;
+  description: string;
+}
+
+export interface ProfileData extends Omit<IUser, "password" | "banReason">{
+  banReason: string | null;
+  createdAt: string;
+  updatedAt: string;
+  courses: IProfileCourse[];
+}

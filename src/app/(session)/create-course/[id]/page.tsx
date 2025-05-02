@@ -8,6 +8,7 @@ import { PageIdParams } from "@/shared/types/main.type";
 import aclRoute from "@/shared/utils/aclRoute";
 import CoursePublicConfirDialog from "@/view/courses/admin/CoursePublicConfirDialog";
 import GenerateLesson from "@/view/courses/admin/GenerateLesson";
+import CoursesImageChanger from "@/view/courses/CoursesImageChanger";
 import { Card, CardContent, Skeleton, Stack, Typography } from "@mui/material";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -57,6 +58,14 @@ const CreateModules = () => {
                 <Typography variant="h5">Ожидаемое время прохождения: {course.duration}</Typography>
                 <Typography variant="h5">Цели курса: {course.goals}</Typography>
               </Stack>
+              <Card>
+                <CardContent>
+                  <Stack spacing={2} alignItems="center">
+                    <Typography variant="h5">Изображение для курса</Typography>
+                    {course && <CoursesImageChanger course={course} />}
+                  </Stack>
+                </CardContent>
+              </Card>
               <Stack spacing={6}>
                 {course.modules?.map((module, moduleIndex) => (
                   <Card key={module.id}>
@@ -83,7 +92,7 @@ const CreateModules = () => {
                   </Card>
                 ))}
               </Stack>
-              <CoursePublicConfirDialog onHandle={onPublicCourse} />
+              <CoursePublicConfirDialog onHandle={onPublicCourse} disabled={!course.image} />
             </Stack>
           )
         }

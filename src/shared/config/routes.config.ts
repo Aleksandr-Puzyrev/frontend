@@ -1,3 +1,5 @@
+import { GetLessonType } from "../interfaces/courses/Course";
+
 const Routes = {
     mainPage: "/",
     auth: {
@@ -6,10 +8,14 @@ const Routes = {
       recovery: "/auth/recovery",
     },
     courses: {
-      list: "/courses",
-      detail: (id: string) => `/courses/${id}`,
+      list: "/all-courses",
+      clientList: "/courses",
+      detail: (id: number) => `/courses/${id}`,
+      lessonComplete: (courseId: string) => `/courses/${courseId}/complete`,
       create: "/create-course",
       createCourseModules: (id: string) => `/create-course/${id}`,
+      lessonCourseDetail: ({courseId, moduleId, lessonId}: GetLessonType) => `/courses/${courseId}/modules/${moduleId}/lessons/${lessonId}`,
+      lessonCourseNext: ({courseId, moduleId, lessonId}: GetLessonType) => `/courses/${courseId}/modules/${moduleId}/lessons/${lessonId}/next`,
     },
     users: {
       list: "/users",

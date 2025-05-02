@@ -21,7 +21,7 @@ interface IAbilityProvider extends React.PropsWithChildren {
 
 export const AbilityProvider = ({ children, accessToken }: IAbilityProvider) => {
   const [token, setToken] = useState(accessToken);
-  const ability = defineAbilitiesFor(token ? ((jwtDecode(token) as JwtType).roles.length > 1 ? UserRoleEnum.ADMIN : UserRoleEnum.USER) : "");
+  const ability = defineAbilitiesFor(token ? ((jwtDecode(token) as JwtType).roles?.length > 1 ? UserRoleEnum.ADMIN : UserRoleEnum.USER) : "");
 
   const updateAbilityToken = (token: string) => {
     setToken(token);

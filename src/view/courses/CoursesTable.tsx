@@ -27,7 +27,7 @@ const CoursesTable = () => {
               borderBottom: "2px solid",
             },
           }}
-          href={Routes.courses.detail(String(item?.row.id))}
+          href={Routes.courses.detail(item?.row.id)}
         >
           #{item?.row.id}
         </Button>

@@ -36,4 +36,11 @@ export interface ICourse {
   goals: string;
   modules: IModules[];
   status?: CourseStatusesType;
+  image?: string;
+}
+
+export type GetLessonType = {
+  courseId: string;
+  moduleId: string;
+  lessonId: string;
 }

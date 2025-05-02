@@ -1,18 +1,18 @@
 "use client";
 
 import aclRoute from "@/shared/utils/aclRoute";
-import CoursesList from "@/view/courses/CoursesList";
+import CoursesTable from "@/view/courses/CoursesTable";
 import { Stack, Typography } from "@mui/material";
 
-const Courses = () => {
+const AllCourses = () => {
   return (
     <Stack spacing={2}>
       <Typography variant="h4" gutterBottom>
-        Курсы
+        Все курсы
       </Typography>
-      <CoursesList />
+      <CoursesTable />
     </Stack>
   );
 };
 
-export default aclRoute(Courses, "read", "Courses");
+export default aclRoute(AllCourses, "read", "AllCourses");

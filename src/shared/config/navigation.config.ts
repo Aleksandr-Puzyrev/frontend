@@ -6,8 +6,12 @@ export const authNavigation = [
     path: Routes.users.list,
   },
   {
-    title: "Курсы",
+    title: "Все курсы",
     path: Routes.courses.list,
+  },
+  {
+    title: "Курсы",
+    path: Routes.courses.clientList,
   },
   {
     title: "Создать курс",

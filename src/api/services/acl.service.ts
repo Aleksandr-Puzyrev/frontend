@@ -8,6 +8,10 @@ class AclService {
     this.can = ability.can;
   }
 
+  public AllCoursesPermissions() {
+    this.can("manage", "AllCourses", [""]);
+  }
+
   public CoursesPermissions() {
     this.can("manage", "Courses", [""]);
   }

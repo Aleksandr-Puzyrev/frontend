@@ -2,10 +2,11 @@ import DialogComponent from "@/components/DialogComponent";
 import { Button, Stack } from "@mui/material";
 
 interface CoursePublicConfirDialogProps {
+  disabled: boolean;
   onHandle: () => void;
 }
 
-const CoursePublicConfirDialog = ({ onHandle }: CoursePublicConfirDialogProps) => {
+const CoursePublicConfirDialog = ({ onHandle, disabled }: CoursePublicConfirDialogProps) => {
   const onHandler = (props: { closeDialog: () => void }) => {
     onHandle();
     props.closeDialog();
@@ -14,7 +15,7 @@ const CoursePublicConfirDialog = ({ onHandle }: CoursePublicConfirDialogProps) =
   return (
     <DialogComponent
       Toggler={(props) => (
-        <Button variant="contained" {...props}>
+        <Button variant="contained" disabled={disabled} {...props}>
           Опубликовать курс
         </Button>
       )}
