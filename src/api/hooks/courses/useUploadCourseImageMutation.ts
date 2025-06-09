@@ -15,8 +15,12 @@ const useUploadCourseImageMutation = (id: number) => {
   const queryClient = useQueryClient();
   const request = async (body: IUploadImage) => {
     const formData = new FormData();
-    formData.append("file", body.file);
-    const { data } = await api.post<ICourse>(`/courses/${id}/image`, formData);
+    formData.append("image", body.file);
+    const { data } = await api.post<ICourse>(`/courses/${id}/image`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return data;
   };
 
