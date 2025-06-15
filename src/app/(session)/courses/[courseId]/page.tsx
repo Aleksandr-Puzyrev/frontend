@@ -43,9 +43,18 @@ const CoursePage = () => {
     return <Typography variant="h6">Курс не найден</Typography>;
   }
 
-  console.log("sessionId", session?.id);
-
   const onHandler = () => {
+    if (session?.courses.find((course) => course.id === Number(courseId))) {
+      router.push(
+        Routes.courses.lessonCourseDetail({
+          courseId,
+          moduleId: String(course.modules?.at(0)?.id),
+          lessonId: String(course.modules.at(0)?.lessons?.at(0)?.id),
+        })
+      );
+      return;
+    }
+    
     mutate(
       { userId: session?.id || 0, courseId: Number(courseId) },
       {

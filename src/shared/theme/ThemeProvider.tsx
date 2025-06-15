@@ -47,7 +47,7 @@ export default function ThemeProvider({ children }: PropsWithChildren) {
 
   const theme = useMemo(() => (mode === "light" ? lightTheme : darkTheme), [mode]);
 
-  if (!isMounted) return null; // или можно показать <Skeleton />
+  if (!isMounted) return null;
 
   return (
     <ThemeContext.Provider value={{ mode, toggleMode }}>
